@@ -32,11 +32,7 @@ def key_index(key: str, keyboard_matrix: list) -> np.array:
 
 def get_dists_vec(bigram_probs: list, keyboard_matrix: list, dist_func: str = 'square', a_s: float = A_S_DEFAULT,
                   a_h: float = A_H_DEFAULT, b_h: float = B_H_DEFAULT) -> np.array:
-    assert dist_func in ('square', 'hex'), 'The distance function must be "square" or "hex"'
-
     result_vec = []
-
-    print('Calculation of distances...')
 
     for bigram in bigram_probs:
         key_indexes_1 = key_index(bigram[0][0], keyboard_matrix)
