@@ -1,17 +1,27 @@
+BATCH_SIZE = 128
+
+A_S_DEFAULT = 1
+A_H_DEFAULT = 0.537634
+B_H_DEFAULT = 0.930605
+
+FITNESS_FUNC_DEFAULT = 'square'
+MINIMIZATION_DEFAULT = True
+POPULATION_SIZE_DEFAULT = 50
+MAX_GENERATION_DEFAULT = 50
+P_CROSSOVER_DEFAULT = 0.9
+P_MUTATION_DEFAULT = 0.2
+TOURN_SIZE_DEFAULT = 3
+HALL_OF_FAME_SIZE_DEFAULT = 1
+
+# Debug
 RU_LANG_PART_DIR = '../data/raw/ru/'
 EN_LANG_PART_DIR = '../data/raw/en/'
-
-BATCH_SIZE = 128
 
 RU_COUNTED_ELEMS = [chr(i) for i in range(1072, 1104)] + ['ё'] + ['space', 'enter'] + ['.', ',']
 RU_PERMUTABLE_ELEMS = [chr(i) for i in range(1072, 1104)] + ['ё'] + ['.', ',']
 
 EN_COUNTED_ELEMS = [chr(i) for i in range(97, 123)] + ['space', 'enter'] + ['.', ',', '!', '?', '-', ':', ';', '(', ')']
 EN_PERMUTABLE_ELEMS = [chr(i) for i in range(97, 123)] + ['.', ',', '!', '?', '-', ':', ';', '(', ')']
-
-A_S_DEFAULT = 1
-A_H_DEFAULT = 0.537634
-B_H_DEFAULT = 0.930605
 
 INIT_HEX_KEYBOARD = [
     ['inv', 'lang', None, None, None, None, '?123'],
@@ -42,5 +52,3 @@ EN_TEST_HEX_KEYBOARD = [
     ['move', '.', ',', '!', '?', ':', 'capslock'],
     ['inv', 'exit', ';', '-', '(', ')', 'shift'],
 ]
-
-
