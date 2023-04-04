@@ -3,8 +3,9 @@ import pandas as pd
 import nltk
 
 from tqdm import tqdm
-from config import BATCH_SIZE
 from typing import Tuple
+
+from ol_optimizer.config import BATCH_SIZE
 
 
 def tokenize_by_letters(texts: pd.Series) -> list:

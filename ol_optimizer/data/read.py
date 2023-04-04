@@ -4,6 +4,8 @@ import pandas as pd
 
 def read_dir(directory: str, pattern: str = '*.txt'):
     path = pathlib.Path(directory)
+    assert path.exists(), f'Directory "{directory}" does not exist'
+
     texts = pd.Series()
 
     for file in path.glob(pattern):
