@@ -1,6 +1,6 @@
 import numpy as np
 
-from config import A_S_DEFAULT, A_H_DEFAULT, B_H_DEFAULT
+from ol_optimizer.config import A_S_DEFAULT, A_H_DEFAULT, B_H_DEFAULT
 
 
 def square_dist(x1: tuple, x2: tuple, a: float = A_S_DEFAULT) -> float:
@@ -49,8 +49,8 @@ def get_dists_vec(bigram_probs: list, keyboard_matrix: list, dist_func: str = 's
         try:
             result_vec.append(min(dists))
         except ValueError:
-            print(f'Error: At least one element of the counted elements: \'{bigram[0][0]}\' or \'{bigram[0][1]}\' does '
-                  f'not match the element in the keyboard')
+            print(f'ValueError: At least one element of the counted elements: \'{bigram[0][0]}\' or \'{bigram[0][1]}\' '
+                  f'does not match the element in the keyboard')
             exit(1)
 
     return np.array(result_vec)

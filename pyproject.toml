@@ -1,11 +1,14 @@
 [tool.poetry]
-name = "matrix-optimization-of-object-locations"
-version = "0.1.0"
+name = "ol_optimizer"
+version = "1.0.0"
 description = ""
 authors = ["Jaskier <borody.maxim@gmail.com>"]
+keywords = ["matrix", "optimization", "genetic", "keyboard"]
 license = "Apache License 2.0"
 readme = "README.md"
-packages = [{include = "src"}]
+packages = [
+    {include = "ol_optimizer"}
+]
 
 [tool.poetry.dependencies]
 python = ">=3.11,<3.12"

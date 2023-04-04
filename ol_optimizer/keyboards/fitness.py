@@ -1,8 +1,7 @@
 import numpy as np
 
-from keyboards.distances import get_dists_vec
-
-from config import A_S_DEFAULT, A_H_DEFAULT, B_H_DEFAULT
+from ol_optimizer.keyboards.distances import get_dists_vec
+from ol_optimizer.config import A_S_DEFAULT, A_H_DEFAULT, B_H_DEFAULT
 
 
 def weighted_average_obj_func(bigram_probs_vec: np.array, dists_vec: np.array) -> float:

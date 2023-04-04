@@ -1,16 +1,18 @@
 import numpy as np
+import pathlib
 
 from deap import base, creator, tools
 
-from data.read import read_dir
-from keyboards.bigrams import get_bigram_probs_with_vec
-from keyboards.fitness import weighted_average_fitness_func
-from components.genetic_alg import random_matrix, mate_matrix, mutate_matrix
-from components.algelitism import ea_simple_elitism
-
-from config import FITNESS_FUNC_DEFAULT, MINIMIZATION_DEFAULT, A_S_DEFAULT, A_H_DEFAULT, B_H_DEFAULT, \
+from ol_optimizer.data.read import read_dir
+from ol_optimizer.keyboards.bigrams import get_bigram_probs_with_vec
+from ol_optimizer.keyboards.fitness import weighted_average_fitness_func
+from ol_optimizer.components.genetic_alg import random_matrix, mate_matrix, mutate_matrix
+from ol_optimizer.components.algelitism import ea_simple_elitism
+from ol_optimizer.config import FITNESS_FUNC_DEFAULT, MINIMIZATION_DEFAULT, A_S_DEFAULT, A_H_DEFAULT, B_H_DEFAULT, \
     POPULATION_SIZE_DEFAULT, P_CROSSOVER_DEFAULT, P_MUTATION_DEFAULT, MAX_GENERATION_DEFAULT, TOURN_SIZE_DEFAULT, \
     HALL_OF_FAME_SIZE_DEFAULT
+
+script_dir = pathlib.Path(__file__).parent.resolve()
 
 
 class Optimizer:
