@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "mlo-optimizer"
-version = "0.1.1"
+version = "0.2.0"
 description = ""
 authors = ["Jaskier <borody.maxim@gmail.com>"]
 keywords = ["matrix", "optimization", "genetic", "keyboard"]
