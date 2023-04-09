@@ -1,11 +1,14 @@
-import numpy as np
-import pandas as pd
-import nltk
-
-from tqdm import tqdm
 from typing import Tuple
 
-from ol_optimizer.config import BATCH_SIZE
+from mlo_optimizer.config import BATCH_SIZE
+
+import nltk
+
+import numpy as np
+
+import pandas as pd
+
+from tqdm import tqdm
 
 
 def tokenize_by_letters(texts: pd.Series) -> list:

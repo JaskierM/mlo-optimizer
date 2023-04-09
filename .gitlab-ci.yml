@@ -1,0 +1,48 @@
+default:
+  image: python:3.11
+
+variables:
+  PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
+
+stages:
+  - lint
+  - deploy
+
+cache:
+  paths:
+    - .cache/pip
+    - venv/
+
+flake8:
+  stage: lint
+  before_script:
+    - pip install poetry
+    - poetry install --only flake8
+  script:
+    - poetry run flake8 .
+
+sphinx:
+  stage: deploy
+#  only:
+#    - main
+  before_script:
+    - pip install poetry
+    - poetry install --only main,sphinx
+  script:
+    - poetry run sphinx-build -b html docs public
+  artifacts:
+    paths:
+      - public
+
+build:
+  stage: deploy
+  #  only:
+  #    - main
+  script:
+    - pip install poetry
+    - poetry install --only main
+    - if [ -d dist ]; then rm -r dist; fi
+    - poetry build
+  artifacts:
+    paths:
+      - dist
