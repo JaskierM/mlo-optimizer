@@ -1,21 +1,27 @@
-import numpy as np
 import pathlib
 
 from deap import base, creator, tools
 
-from ol_optimizer.data.read import read_dir
-from ol_optimizer.keyboards.bigrams import get_bigram_probs_with_vec
-from ol_optimizer.keyboards.fitness import weighted_average_fitness_func
-from ol_optimizer.components.genetic_alg import random_matrix, mate_matrix, mutate_matrix
-from ol_optimizer.components.algelitism import ea_simple_elitism
-from ol_optimizer.config import FITNESS_FUNC_DEFAULT, MINIMIZATION_DEFAULT, A_S_DEFAULT, A_H_DEFAULT, B_H_DEFAULT, \
-    POPULATION_SIZE_DEFAULT, P_CROSSOVER_DEFAULT, P_MUTATION_DEFAULT, MAX_GENERATION_DEFAULT, TOURN_SIZE_DEFAULT, \
-    HALL_OF_FAME_SIZE_DEFAULT
+from mlo_optimizer.components.algelitism import ea_simple_elitism
+from mlo_optimizer.components.genetic_alg import mate_matrix, mutate_matrix, random_matrix
+from mlo_optimizer.config import A_H_DEFAULT, A_S_DEFAULT, B_H_DEFAULT, FITNESS_FUNC_DEFAULT, \
+    HALL_OF_FAME_SIZE_DEFAULT, MAX_GENERATION_DEFAULT, MINIMIZATION_DEFAULT, POPULATION_SIZE_DEFAULT, \
+    P_CROSSOVER_DEFAULT, P_MUTATION_DEFAULT, TOURN_SIZE_DEFAULT
+from mlo_optimizer.data.read import read_dir
+from mlo_optimizer.keyboards.bigrams import get_bigram_probs_with_vec
+from mlo_optimizer.keyboards.fitness import weighted_average_fitness_func
+
+import numpy as np
 
 script_dir = pathlib.Path(__file__).parent.resolve()
 
 
 class Optimizer:
+    """Тестовая документация
+
+    :param init_matrix: Класс состояний, хранящий изменяемые флаги и выбранные раскладки
+    :type init_matrix: list
+    """
     def __init__(self,
                  init_matrix: list,
                  counted_elems: list,

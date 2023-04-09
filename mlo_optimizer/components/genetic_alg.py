@@ -1,8 +1,9 @@
-import numpy as np
 import random
-
 from copy import deepcopy
+
 from deap import creator
+
+import numpy as np
 
 
 def random_matrix(init_matrix: list, permutable_elems: list):
@@ -99,4 +100,4 @@ def mutate_matrix(individual: list, permutable_elems: list):
 
     res_matrix = vec.reshape(dims).tolist()
 
-    return creator.Individual(res_matrix),
+    return (creator.Individual(res_matrix),)

@@ -1,31 +1,30 @@
+from mlo_optimizer.config import A_H_DEFAULT, A_S_DEFAULT, B_H_DEFAULT
+
 import numpy as np
 
-from ol_optimizer.config import A_S_DEFAULT, A_H_DEFAULT, B_H_DEFAULT
+
+def square_dist(x1: tuple, x2: tuple, coef: float = A_S_DEFAULT) -> float:
+    return coef * np.linalg.norm(np.array(x2) - np.array(x1))
 
 
-def square_dist(x1: tuple, x2: tuple, a: float = A_S_DEFAULT) -> float:
-    return a * np.linalg.norm(np.array(x2) - np.array(x1))
-
-
-def hex_dist(x1: tuple, x2: tuple, a: float = A_H_DEFAULT, b: float = B_H_DEFAULT) -> float:
+def hex_dist(x1: tuple, x2: tuple, h_coef: float = A_H_DEFAULT, v_coef: float = B_H_DEFAULT) -> float:
     h_dist = 2 * (x1[1] - x2[1]) - (x1[0] % 2 - x2[0] % 2)
     v_dist = x1[0] - x2[0]
-    return ((a * h_dist)**2 + (b * v_dist)**2) ** (1/2)
+    return ((h_coef * h_dist)**2 + (v_coef * v_dist)**2) ** (1/2)
 
 
 def key_index(key: str, keyboard_matrix: list) -> np.array:
     indexes = []
 
     for i in range(len(keyboard_matrix)):
-        for j in range(len(keyboard_matrix[i])):
-
-            if type(keyboard_matrix[i][j]) != list:
-                if keyboard_matrix[i][j] == key:
-                    indexes.append((i, j))
+        for i_1 in range(len(keyboard_matrix[i])):
+            if type(keyboard_matrix[i][i_1]) != list:
+                if keyboard_matrix[i][i_1] == key:
+                    indexes.append((i, i_1))
             else:
-                for k in keyboard_matrix[i][j]:
-                    if k == key:
-                        indexes.append((i, j))
+                for key_j in keyboard_matrix[i][i_1]:
+                    if key_j == key:
+                        indexes.append((i, i_1))
 
     return np.array(indexes)
 
