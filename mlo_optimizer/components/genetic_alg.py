@@ -7,6 +7,14 @@ import numpy as np
 
 
 def random_matrix(init_matrix: list, permutable_elems: list):
+    """Creates an individual matrix with randomly placed elements from permutable_elems
+
+    :param init_matrix: Initial initialization matrix with elements
+    :type init_matrix: list
+    :param permutable_elems: Set of elements that will be entered into the matrix and randomly rearranged
+    :type permutable_elems: list
+    :return: Individual
+    """
     permutable_elems_copy = deepcopy(permutable_elems)
     random.shuffle(permutable_elems_copy)
 
@@ -27,6 +35,18 @@ def random_matrix(init_matrix: list, permutable_elems: list):
 
 
 def mate_matrix(individual_1: list, individual_2: list, permutable_elems: list):
+    """Crossbreeding method based on ordered crossover
+
+    Rearranges elements only from permutable_elems
+
+    :param individual_1: 1st individual
+    :type individual_1: list
+    :param individual_2: 2nd individual
+    :type individual_2: list
+    :param permutable_elems: Elements that can be rearranged during crossing
+    :type permutable_elems: list
+    :return: Children of crossed individuals
+    """
     np_array_1, np_array_2 = np.array(individual_1), np.array(individual_2)
     dims_1, dims_2 = np_array_1.shape, np_array_2.shape
 
@@ -78,6 +98,16 @@ def mate_matrix(individual_1: list, individual_2: list, permutable_elems: list):
 
 
 def mutate_matrix(individual: list, permutable_elems: list):
+    """Mutation method based on permutation mutation
+
+    Rearranges elements only from permutable_elems
+
+    :param individual: Individual
+    :type individual: list
+    :param permutable_elems: Elements that can be rearranged during crossing
+    :type permutable_elems: list
+    :return: Mutated element
+    """
     np_array = np.array(individual)
     dims = np_array.shape
 
