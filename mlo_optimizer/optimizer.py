@@ -97,10 +97,39 @@ class BigramProbsDescriptor:
 
 
 class Optimizer:
-    """Тестовая документация
+    """Main class that tunes the components of the genetic algorithm and implements the optimizer
 
-    :param init_matrix: Класс состояний, хранящий изменяемые флаги и выбранные раскладки
+    :param init_matrix: Initial initialization matrix with elements (permutable and not counted)
     :type init_matrix: list
+    :param counted_elems: Set of elements taken into account in the objective function
+    :type counted_elems: list
+    :param permutable_elems: The set of elements that are rearranged during crossover and mutation
+    :type permutable_elems: list
+    :param fitness_func: Objective function that receives an individual as input and returns a fitness score
+    :type fitness_func: callable
+    :param fitness_func_kwargs: Named arguments for target function
+    :type fitness_func_kwargs: dict
+    :param minimization: Minimization and Maximization Flag of the Objective Function
+    :type minimization: bool
+    :param a_s: Half side of square button (when fitness_func='square')
+    :type a_s: float
+    :param a_h: Distance from the middle of a hexagonal key to the middle of its side (when fitness_func='hex')
+    :type a_h: float
+    :param b_h: Distance from the middle of the hexagonal key to the middle of the side of the bottom key (when
+    fitness_func='hex')
+    :type b_h: float
+    :param population_size: Population size in one generation
+    :type population_size: int
+    :param p_crossover: Crossbreeding probability
+    :type p_crossover: float
+    :param p_mutation: Mutation probability
+    :type p_mutation: float
+    :param max_generation: Maximum number of generations
+    :type max_generation: int
+    :param tourn_size: sample size for tournament selection
+    :type tourn_size: int
+    :param hall_of_fame_size: Number of best individuals obtained after the completion of the optimization
+    :type hall_of_fame_size: int
     """
     IMPLEMENTED_FITNESS_FUNCS = ('square', 'hex')
 
@@ -124,16 +153,16 @@ class Optimizer:
                  init_matrix: list,
                  counted_elems: list,
                  permutable_elems: list,
-                 fitness_func=FITNESS_FUNC_DEFAULT,
+                 fitness_func: callable = FITNESS_FUNC_DEFAULT,
                  fitness_func_kwargs: dict = None,
                  minimization: bool = MINIMIZATION_DEFAULT,
                  a_s: float = A_S_DEFAULT,
                  a_h: float = A_H_DEFAULT,
                  b_h: float = B_H_DEFAULT,
                  population_size: int = POPULATION_SIZE_DEFAULT,
+                 max_generation: int = MAX_GENERATION_DEFAULT,
                  p_crossover: float = P_CROSSOVER_DEFAULT,
                  p_mutation: float = P_MUTATION_DEFAULT,
-                 max_generation: int = MAX_GENERATION_DEFAULT,
                  tourn_size: int = TOURN_SIZE_DEFAULT,
                  hall_of_fame_size: int = HALL_OF_FAME_SIZE_DEFAULT):
 
@@ -148,19 +177,28 @@ class Optimizer:
         self.b_h = b_h
         self.population_size = population_size
         self.max_generation = max_generation
-        self.tourn_size = tourn_size
-        self.hall_of_fame_size = hall_of_fame_size
         self.p_crossover = p_crossover
         self.p_mutation = p_mutation
+        self.tourn_size = tourn_size
+        self.hall_of_fame_size = hall_of_fame_size
 
         self.bigram_probs = None
         self.bigram_probs_vec = None
 
     def fit_bigrams(self, lang_part_dir: str):
+        """Reads text files and construct bigram probability vectors from them
+
+        :param lang_part_dir: Folder with text files
+        :type lang_part_dir: str
+        """
         texts = read_dir(lang_part_dir)
         self.bigram_probs, self.bigram_probs_vec = get_bigram_probs_with_vec(texts, self.counted_elems)
 
     def optimize(self):
+        """Collects all components and runs optimization
+
+        :return: Matrices of the best individuals (quantity depends on the parameter hall_of_fame_size)
+        """
         if self.__minimization:
             weight = -1.0
         else:
