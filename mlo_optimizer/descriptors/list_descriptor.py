@@ -10,7 +10,7 @@ class ListDescriptor:
         setattr(instance, self.name, value)
 
     def verify_list(self, value):
-        if type(value) != list:
+        if isinstance(value, list):
             raise TypeError(f'Attribute "{self.name[2:]}" must be represented by a Python list')
         if not value:
             raise TypeError(f'Attribute "{self.name[2:]}" must not be empty')

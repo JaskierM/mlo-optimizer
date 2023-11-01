@@ -10,7 +10,7 @@ class SizeDescriptor:
         setattr(instance, self.name, value)
 
     def verify_size(self, value):
-        if type(value) != int:
+        if isinstance(value, int):
             raise TypeError(f'Valid type for attribute "{self.name[2:]}" is int')
         if value <= 0:
             raise TypeError(f'Attribute "{self.name[2:]}" must be greater than 0')

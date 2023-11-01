@@ -48,7 +48,7 @@ def key_index(key: str, keyboard_matrix: list) -> np.array:
 
     for i in range(len(keyboard_matrix)):
         for i_1 in range(len(keyboard_matrix[i])):
-            if type(keyboard_matrix[i][i_1]) != list:
+            if isinstance(keyboard_matrix[i][i_1], list):
                 if keyboard_matrix[i][i_1] == key:
                     indexes.append((i, i_1))
             else:

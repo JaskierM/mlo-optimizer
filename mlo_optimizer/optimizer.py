@@ -151,7 +151,9 @@ class Optimizer:
             toolbox.register('evaluate', weighted_average_fitness_func, bigram_probs=self.bigram_probs,
                              bigram_probs_vec=self.bigram_probs_vec, dist_func='hex', a_h=self.a_h, b_h=self.b_h)
         else:
-            toolbox.register('evaluate', self.__fitness_func, **self.__fitness_func_kwargs)
+            toolbox.register('evaluate', self.__fitness_func, bigram_probs=self.bigram_probs,
+                             bigram_probs_vec=self.bigram_probs_vec, dist_func='hex', a_h=self.a_h, b_h=self.b_h,
+                             **self.__fitness_func_kwargs)
 
         toolbox.register('select', tools.selTournament, tournsize=self.tourn_size)
         toolbox.register('mate', mate_matrix, permutable_elems=self.permutable_elems)
@@ -196,7 +198,7 @@ class Optimizer:
     def fitness_func_kwargs(self, value):
         if value is None:
             self.__fitness_func_kwargs = {}
-        elif type(value) != dict:
+        elif isinstance(value, dict):
             raise TypeError('Attribute "fitness_func_kwargs" must be represented as Python dict')
         else:
             self.__fitness_func_kwargs = value
@@ -207,6 +209,6 @@ class Optimizer:
 
     @minimization.setter
     def minimization(self, value):
-        if type(value) != bool:
+        if isinstance(value, bool):
             raise TypeError('Attribute "minimization" must be represented as boolean')
         self.__minimization = value
