@@ -8,92 +8,17 @@ from mlo_optimizer.config import A_H_DEFAULT, A_S_DEFAULT, B_H_DEFAULT, FITNESS_
     HALL_OF_FAME_SIZE_DEFAULT, MAX_GENERATION_DEFAULT, MINIMIZATION_DEFAULT, POPULATION_SIZE_DEFAULT, \
     P_CROSSOVER_DEFAULT, P_MUTATION_DEFAULT, TOURN_SIZE_DEFAULT
 from mlo_optimizer.data.read import read_dir
+from mlo_optimizer.descriptors.bigram_probs_descriptor import BigramProbsDescriptor
+from mlo_optimizer.descriptors.coef_descriptor import CoefficientDescriptor
+from mlo_optimizer.descriptors.list_descriptor import ListDescriptor
+from mlo_optimizer.descriptors.probability_descriptor import ProbabilityDescriptor
+from mlo_optimizer.descriptors.size_descriptor import SizeDescriptor
 from mlo_optimizer.keyboards.bigrams import get_bigram_probs_with_vec
 from mlo_optimizer.keyboards.fitness import weighted_average_fitness_func
 
 import numpy as np
 
 script_dir = pathlib.Path(__file__).parent.resolve()
-
-
-class ListDescriptor:
-    def __set_name__(self, owner, name):
-        self.name = '__' + name
-
-    def __get__(self, instance, owner):
-        return getattr(instance, self.name)
-
-    def __set__(self, instance, value):
-        self.verify_list(value)
-        setattr(instance, self.name, value)
-
-    def verify_list(self, value):
-        if type(value) != list:
-            raise TypeError(f'Attribute "{self.name[2:]}" must be represented by a Python list')
-        if not value:
-            raise TypeError(f'Attribute "{self.name[2:]}" must not be empty')
-
-
-class CoefficientDescriptor:
-    def __set_name__(self, owner, name):
-        self.name = '__' + name
-
-    def __get__(self, instance, owner):
-        return getattr(instance, self.name)
-
-    def __set__(self, instance, value):
-        self.verify_coefficient(value)
-        setattr(instance, self.name, value)
-
-    def verify_coefficient(self, value):
-        if type(value) not in (int, float):
-            raise TypeError(f'Valid types for attribute "{self.name[2:]}" are int and float')
-        if value <= 0:
-            raise TypeError(f'Attribute "{self.name[2:]}" must be greater than 0')
-
-
-class SizeDescriptor:
-    def __set_name__(self, owner, name):
-        self.name = '__' + name
-
-    def __get__(self, instance, owner):
-        return getattr(instance, self.name)
-
-    def __set__(self, instance, value):
-        self.verify_size(value)
-        setattr(instance, self.name, value)
-
-    def verify_size(self, value):
-        if type(value) != int:
-            raise TypeError(f'Valid type for attribute "{self.name[2:]}" is int')
-        if value <= 0:
-            raise TypeError(f'Attribute "{self.name[2:]}" must be greater than 0')
-
-
-class ProbabilityDescriptor:
-    def __set_name__(self, owner, name):
-        self.name = '__' + name
-
-    def __get__(self, instance, owner):
-        return getattr(instance, self.name)
-
-    def __set__(self, instance, value):
-        self.verify_probability(value)
-        setattr(instance, self.name, value)
-
-    def verify_probability(self, value):
-        if type(value) not in (int, float):
-            raise TypeError(f'Valid types for attribute "{self.name[2:]}" are int and float')
-        if value < 0 or value > 1:
-            raise TypeError(f'Probability "{self.name[2:]}" must be between 0 and 1')
-
-
-class BigramProbsDescriptor:
-    def __set_name__(self, owner, name):
-        self.name = '__x'
-
-    def __get__(self, instance, owner):
-        return getattr(instance, self.name)
 
 
 class Optimizer:
