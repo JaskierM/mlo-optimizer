@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "mlo-optimizer"
-version = "0.2.0"
+version = "1.0.0"
 description = ""
 authors = ["Jaskier <borody.maxim@gmail.com>"]
 keywords = ["matrix", "optimization", "genetic", "keyboard"]
@@ -12,7 +12,7 @@ packages = [
 
 
 [tool.poetry.dependencies]
-python = ">=3.11,<3.12"
+python = ">=3.9,<3.13"
 numpy = "^1.24.2"
 pandas = "^2.0.0"
 tqdm = "^4.65.0"
