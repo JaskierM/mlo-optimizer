@@ -1,11 +1,13 @@
 [tool.poetry]
 name = "mlo-optimizer"
-version = "1.0.0"
+version = "1.0.1"
 description = ""
-authors = ["Jaskier <borody.maxim@gmail.com>"]
-keywords = ["matrix", "optimization", "genetic", "keyboard"]
 license = "Apache License 2.0"
+authors = ["Jaskier <borody.maxim@gmail.com>"]
 readme = "README.md"
+repository = "https://github.com/JaskierM/mlo-optimizer"
+keywords = ["matrix", "optimization", "genetic", "keyboard"]
+
 packages = [
     {include = "mlo_optimizer"}
 ]
